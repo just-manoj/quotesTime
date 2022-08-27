@@ -1,11 +1,18 @@
-const { View, Text } = require('react-native');
+import { View, Text, StyleSheet } from 'react-native';
 
 const QuotesList = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>QuotesList Screen</Text>
     </View>
   );
 };
 
 export default QuotesList;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#202120',
+  },
+});

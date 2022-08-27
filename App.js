@@ -1,9 +1,18 @@
+import { View, StyleSheet } from 'react-native';
 import Navigation from './src/Navigation/Navigation';
 
 export default function App() {
   return (
     <>
-      <Navigation />
+      <View style={styles.container}>
+        <Navigation />
+      </View>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
