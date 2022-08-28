@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 import QuoteItem from '../components/QuoteItem';
-import { globalStyles } from '../GlobalStyles/globalStyles';
+import { globalStyles } from '../globalStyles/globalStyles';
 
 const renderQuote = (quoteDetails) => {
   return <QuoteItem {...quoteDetails.item} />;

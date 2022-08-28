@@ -4,7 +4,7 @@ import { Foundation } from '@expo/vector-icons';
 
 import QuotesList from '../screens/QuotesList';
 import ManageQuote from '../screens/ManageQuote';
-import { globalStyles } from '../GlobalStyles/globalStyles';
+import { globalStyles } from '../globalStyles/globalStyles';
 
 const Navigation = () => {
   const BottomTab = createBottomTabNavigator();
