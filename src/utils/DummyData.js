@@ -44,6 +44,6 @@ export const DummyData = [
     quote:
       'If something’s important enough, you should try. Even if - the probable outcome is failure',
     name: 'Elon Musk',
-    date: new Date('2022-08-26'),
+    date: new Date('2022-08-27'),
   },
 ];

@@ -1,28 +1,33 @@
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { dateFormat, findDay, findTime } from '../utils/date';
+import { findDay, findTime } from '../utils/date';
 
 const QuoteItem = (props) => {
   const { name, quote, date } = props;
   return (
     <View style={styles.container}>
-      <View style={styles.subContainer}>
-        <View style={styles.quoteContainer}>
-          <MaterialCommunityIcons
-            name='format-quote-open'
-            size={22}
-            color='#e0d7d7'
-          />
-          <Text style={styles.quoteText}>{quote}.</Text>
+      <Pressable android_ripple={{ color: '#e0d7d7' }}>
+        <View style={styles.subContainer}>
+          <View style={styles.quoteContainer}>
+            <MaterialCommunityIcons
+              name='format-quote-open'
+              size={22}
+              color='#e0d7d7'
+            />
+            <Text style={styles.quoteText}>{quote}.</Text>
+          </View>
         </View>
-      </View>
-      <View style={styles.subTextContainer}>
-        <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
-          <Text style={[styles.text, styles.dateText]}>{findDay(date)}</Text>
-          <Text style={[styles.text, styles.dateText]}> {findTime(date)}</Text>
+        <View style={styles.subTextContainer}>
+          <View style={styles.dateTimeContainer}>
+            <Text style={[styles.text, styles.dateText]}>{findDay(date)}</Text>
+            <Text style={[styles.text, styles.dateText]}>
+              {'  '}
+              {findTime(date)}
+            </Text>
+          </View>
+          <Text style={styles.text}>-{name}</Text>
         </View>
-        <Text style={styles.text}>-{name}</Text>
-      </View>
+      </Pressable>
     </View>
   );
 };
@@ -38,6 +43,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     elevation: 3,
     backgroundColor: '#2d2e30',
+    overflow: 'hidden',
   },
   subContainer: {
     paddingTop: 10,
@@ -46,6 +52,11 @@ const styles = StyleSheet.create({
   },
   quoteContainer: {
     flexDirection: 'row',
+  },
+  dateTimeContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
   quoteText: {
     fontSize: 16,
@@ -58,12 +69,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 15,
     paddingRight: 18,
-    paddingTop: 3,
-    paddingBottom: 10,
+    paddingTop: 7,
+    paddingBottom: 15,
   },
   text: {
-    fontWeight: '600',
-    fontSize: 13,
+    fontWeight: '700',
+    fontSize: 14,
     color: 'white',
   },
   dateText: {
