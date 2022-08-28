@@ -4,6 +4,7 @@ import { Foundation } from '@expo/vector-icons';
 
 import QuotesList from '../screens/QuotesList';
 import ManageQuote from '../screens/ManageQuote';
+import { globalStyles } from '../GlobalStyles/globalStyles';
 
 const Navigation = () => {
   const BottomTab = createBottomTabNavigator();
@@ -12,12 +13,11 @@ const Navigation = () => {
       <BottomTab.Navigator
         screenOptions={{
           tabBarStyle: {
-            backgroundColor: '#2D2E2F',
-            height: 57,
+            backgroundColor: globalStyles.colors.tabBarBackground,
             borderTopWidth: 0,
           },
-          tabBarActiveTintColor: '#ece1e1',
-          tabBarInactiveTintColor: '#86808f',
+          tabBarActiveTintColor: globalStyles.colors.tabBarActive,
+          tabBarInactiveTintColor: globalStyles.colors.tabBarInActive,
           headerShown: false,
         }}
       >

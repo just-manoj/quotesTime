@@ -1,19 +1,20 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { useSelector } from 'react-redux';
 import QuoteItem from '../components/QuoteItem';
-
-import { DummyData } from '../utils/DummyData';
+import { globalStyles } from '../GlobalStyles/globalStyles';
 
 const renderQuote = (quoteDetails) => {
   return <QuoteItem {...quoteDetails.item} />;
 };
 
 const QuotesList = () => {
+  const quoteDetails = useSelector((state) => state.quotesData.quotes);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Quotes Time</Text>
       <View style={styles.list}>
         <FlatList
-          data={DummyData}
+          data={quoteDetails}
           keyExtractor={(item) => item.id}
           renderItem={renderQuote}
         />
@@ -27,7 +28,7 @@ export default QuotesList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#202120',
+    backgroundColor: globalStyles.colors.screenBackground,
   },
   title: {
     fontSize: 20,
