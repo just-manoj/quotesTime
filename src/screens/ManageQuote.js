@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 
@@ -7,10 +7,12 @@ import CustomButton from '../components/CustomButton';
 import InputText from '../components/InputText';
 import { globalStyles } from '../globalStyles/globalStyles';
 import { addQuote } from '../redux/QuotesData';
+import { postQuoteDetails } from '../utils/http';
 
 const ManageQuote = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
   const [quoteInputValue, setQuoteInputValue] = useState({
     name: {
       value: '',
@@ -42,12 +44,11 @@ const ManageQuote = () => {
       },
     });
   };
-  const confirmHandler = () => {
+  const confirmHandler = async () => {
     const value = {
       name: quoteInputValue.name.value,
       quote: quoteInputValue.quote.value,
       date: new Date(),
-      id: Math.random(),
     };
     const nameIsValid = value.name.trim().length < 1 ? false : true;
     const quoteIsValid = value.quote.trim().length < 1 ? false : true;
@@ -67,7 +68,8 @@ const ManageQuote = () => {
       });
       return;
     }
-    dispatch(addQuote({ quoteData: value }));
+    const id = await postQuoteDetails(value);
+    dispatch(addQuote({ quoteData: { ...value, id: id } }));
     setEmpty();
     navigation.navigate('QuotesList');
   };
@@ -76,6 +78,10 @@ const ManageQuote = () => {
     setEmpty();
     navigation.navigate('QuotesList');
   };
+
+  useLayoutEffect(() => {
+    setEmpty();
+  }, []);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Add Quote</Text>

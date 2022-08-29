@@ -20,11 +20,13 @@ const QuoteItem = (props) => {
         </View>
         <View style={styles.subTextContainer}>
           <View style={styles.dateTimeContainer}>
-            <Text style={[styles.text, styles.dateText]}>{findDay(date)}</Text>
+            <Text style={[styles.text, styles.dateText]}>
+              {findDay(new Date(date))}
+            </Text>
 
             <Text style={[styles.text, styles.dateText]}>
               {'  '}
-              {findTime(date)}
+              {findTime(new Date(date))}
             </Text>
           </View>
           <Text style={styles.text}>-{name}</Text>

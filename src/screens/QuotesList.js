@@ -1,14 +1,34 @@
+import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import QuoteItem from '../components/QuoteItem';
 import { globalStyles } from '../globalStyles/globalStyles';
+import { setQuote } from '../redux/QuotesData';
+import { fetchQuoteDetails } from '../utils/http';
+import LoadingScreen from '../components/LoadingScreen';
 
 const renderQuote = (quoteDetails) => {
   return <QuoteItem {...quoteDetails.item} />;
 };
 
 const QuotesList = () => {
+  const [isFetched, setIsFetched] = useState(false);
+  const dispatch = useDispatch();
   const quoteDetails = useSelector((state) => state.quotesData.quotes);
+
+  useEffect(() => {
+    const getQuoteDetails = async () => {
+      const data = await fetchQuoteDetails();
+      dispatch(setQuote({ quotesDetails: data }));
+      setIsFetched(true);
+    };
+    getQuoteDetails();
+  }, []);
+
+  if (!isFetched) {
+    return <LoadingScreen />;
+  }
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Quotes Time</Text>
