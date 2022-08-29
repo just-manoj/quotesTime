@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: 50,
     marginTop: 35,
+    marginBottom: 10,
   },
   list: {
     flex: 1,

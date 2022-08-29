@@ -1,15 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { Foundation } from '@expo/vector-icons';
 
 import QuotesList from '../screens/QuotesList';
 import ManageQuote from '../screens/ManageQuote';
 import { globalStyles } from '../globalStyles/globalStyles';
 
-const Navigation = () => {
+const BottomNavigators = () => {
   const BottomTab = createBottomTabNavigator();
   return (
-    <NavigationContainer>
+    <>
       <BottomTab.Navigator
         screenOptions={{
           tabBarStyle: {
@@ -50,6 +51,17 @@ const Navigation = () => {
           }}
         />
       </BottomTab.Navigator>
+    </>
+  );
+};
+
+const Navigation = () => {
+  const Stack = createStackNavigator();
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='main' component={BottomNavigators} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

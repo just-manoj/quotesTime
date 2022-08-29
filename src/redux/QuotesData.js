@@ -8,7 +8,8 @@ const QuotesData = createSlice({
   },
   reducers: {
     addQuote: (state, action) => {
-      state.quotes.push(action.payload);
+      console.log(action.payload);
+      state.quotes.push(action.payload.quoteData);
     },
   },
 });

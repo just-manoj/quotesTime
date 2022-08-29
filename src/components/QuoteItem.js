@@ -40,7 +40,7 @@ const windowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
-    width: (5 * windowWidth) / 6,
+    width: 0.8 * windowWidth,
     margin: 8,
     borderRadius: 7,
     elevation: 3,

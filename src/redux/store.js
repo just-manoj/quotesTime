@@ -6,4 +6,8 @@ export const store = configureStore({
   reducer: {
     quotesData: QuotesData,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });

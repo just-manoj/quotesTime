@@ -8,5 +8,7 @@ export const globalStyles = {
     tabBarInActive: '#86808f',
     inputHint: '#7b7f85',
     inputText: '#d8dce0',
+    errorText: '#c5304b',
+    errorBackGround: '#dd7b8d',
   },
 };

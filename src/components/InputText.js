@@ -3,15 +3,27 @@ import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { globalStyles } from '../globalStyles/globalStyles';
 
 const InputText = (props) => {
-  const { title, style } = props;
+  const { title, style, inputProps, isValid } = props;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.hint}>{title}</Text>
+      <Text
+        style={[
+          styles.hint,
+          !isValid && { color: globalStyles.colors.errorText },
+        ]}
+      >
+        {title}
+      </Text>
       <TextInput
+        {...inputProps}
         underlineColorAndroid='transparent'
         autoCorrect={false}
-        style={[styles.input, style]}
+        style={[
+          styles.input,
+          style,
+          !isValid && { backgroundColor: globalStyles.colors.errorBackGround },
+        ]}
       />
     </View>
   );
