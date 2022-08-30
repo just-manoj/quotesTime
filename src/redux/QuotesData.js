@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { DummyData } from '../utils/DummyData';
 
 const QuotesData = createSlice({
   name: 'quotesData',
