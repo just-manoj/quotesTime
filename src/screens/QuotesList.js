@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Text, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons';
 
 import QuoteItem from '../components/QuoteItem';
 import { globalStyles } from '../globalStyles/globalStyles';
@@ -13,9 +15,14 @@ const renderQuote = (quoteDetails) => {
 };
 
 const QuotesList = () => {
+  const navigation = useNavigation();
   const [isFetched, setIsFetched] = useState(false);
   const dispatch = useDispatch();
   const quoteDetails = useSelector((state) => state.quotesData.quotes);
+
+  const navigateScreen = () => {
+    navigation.navigate('ManageQuote');
+  };
 
   useEffect(() => {
     const getQuoteDetails = async () => {
@@ -31,7 +38,17 @@ const QuotesList = () => {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Quotes Time</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Quotes Time</Text>
+        <View style={styles.icon}>
+          <Pressable
+            onPress={navigateScreen}
+            style={({ pressed }) => pressed && { opacity: 0.6 }}
+          >
+            <AntDesign name='plus' size={25} color='white' />
+          </Pressable>
+        </View>
+      </View>
       <View style={styles.list}>
         <FlatList
           data={quoteDetails}
@@ -50,17 +67,26 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: globalStyles.colors.screenBackground,
   },
+  titleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: 30,
+    marginTop: 45,
+  },
   title: {
-    fontSize: 20,
-    fontWeight: '800',
+    fontFamily: 'title',
+    fontSize: 25,
     color: 'white',
-    marginLeft: 50,
-    marginTop: 35,
-    marginBottom: 10,
+  },
+
+  icon: {
+    marginTop: 2,
+    marginRight: 20,
   },
   list: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+    marginTop: -15,
   },
 });
