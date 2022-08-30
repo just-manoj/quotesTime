@@ -1,67 +1,30 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Foundation } from '@expo/vector-icons';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import QuotesList from '../screens/QuotesList';
 import ManageQuote from '../screens/ManageQuote';
-import { globalStyles } from '../globalStyles/globalStyles';
 
-const BottomNavigators = () => {
-  const BottomTab = createBottomTabNavigator();
+const Navigation = () => {
+  const StackNative = createNativeStackNavigator();
+
   return (
-    <>
-      <BottomTab.Navigator
-        screenOptions={{
-          tabBarStyle: {
-            backgroundColor: globalStyles.colors.tabBarBackground,
-            borderTopWidth: 0,
-          },
-          tabBarActiveTintColor: globalStyles.colors.tabBarActive,
-          tabBarInactiveTintColor: globalStyles.colors.tabBarInActive,
-          headerShown: false,
-        }}
-      >
-        <BottomTab.Screen
+    <NavigationContainer>
+      <StackNative.Navigator>
+        <StackNative.Screen
           name='QuotesList'
           component={QuotesList}
           options={{
-            tabBarLabel: 'List',
-            tabBarIcon: ({ size, color }) => (
-              <Foundation
-                name='clipboard-notes'
-                size={size + 3.5}
-                color={color}
-              />
-            ),
+            headerShown: false,
           }}
         />
-        <BottomTab.Screen
+        <StackNative.Screen
           name='ManageQuote'
           component={ManageQuote}
           options={{
-            tabBarLabel: 'Add',
-            tabBarIcon: ({ size, color }) => (
-              <Foundation
-                name='clipboard-pencil'
-                size={size + 2.5}
-                color={color}
-              />
-            ),
+            headerShown: false,
           }}
         />
-      </BottomTab.Navigator>
-    </>
-  );
-};
-
-const Navigation = () => {
-  const Stack = createStackNavigator();
-  return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name='main' component={BottomNavigators} />
-      </Stack.Navigator>
+      </StackNative.Navigator>
     </NavigationContainer>
   );
 };
