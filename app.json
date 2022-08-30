@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "quotesTime",
+    "name": "Quotes Time",
     "slug": "quotesTime",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Logo.jpg",
+    "icon": "./assets/Logo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/Splash.png",
