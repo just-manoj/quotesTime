@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   text: {
+    fontFamily: 'button',
     textAlign: 'center',
     color: globalStyles.colors.tabBarActive,
   },

@@ -38,17 +38,18 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   hint: {
+    fontFamily: 'hint',
     marginLeft: 2,
     marginBottom: 4,
     color: globalStyles.colors.inputHint,
     fontSize: 13,
   },
   input: {
+    fontFamily: 'inputText',
     padding: 5,
     backgroundColor: globalStyles.colors.quoteBackground,
     borderRadius: 4,
     fontSize: 14,
-    fontWeight: '600',
     color: globalStyles.colors.inputText,
   },
 });

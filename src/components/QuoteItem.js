@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   quoteText: {
+    fontFamily: 'quote',
     fontSize: 16,
     color: globalStyles.colors.quoteText,
     fontWeight: '600',
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   text: {
-    fontWeight: '700',
+    fontFamily: 'inputText',
     fontSize: 14,
     color: 'white',
   },

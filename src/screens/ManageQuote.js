@@ -126,11 +126,11 @@ const styles = StyleSheet.create({
     paddingTop: 110,
   },
   secondaryContainer: {
-    paddingTop: 20,
+    paddingTop: 10,
   },
   title: {
-    fontSize: 20,
-    fontWeight: '700',
+    fontFamily: 'title',
+    fontSize: 25,
     color: 'white',
     textAlign: 'center',
   },
