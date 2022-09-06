@@ -7,10 +7,12 @@ const QuotesData = createSlice({
   },
   reducers: {
     addQuote: (state, action) => {
-      state.quotes.push(action.payload.quoteData);
+      state.quotes.splice(0, 0, action.payload.quoteData);
     },
     setQuote: (state, action) => {
-      action.payload.quotesDetails.forEach((quote) => state.quotes.push(quote));
+      action.payload.quotesDetails
+        .reverse()
+        .forEach((quote) => state.quotes.push(quote));
     },
   },
 });
