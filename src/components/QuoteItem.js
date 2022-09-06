@@ -7,31 +7,29 @@ const QuoteItem = (props) => {
   const { name, quote, date } = props;
   return (
     <View style={styles.container}>
-      <Pressable android_ripple={{ color: globalStyles.colors.quoteText }}>
-        <View style={styles.subContainer}>
-          <View style={styles.quoteContainer}>
-            <MaterialCommunityIcons
-              name='format-quote-open'
-              size={22}
-              color={globalStyles.colors.quoteText}
-            />
-            <Text style={styles.quoteText}>{quote}.</Text>
-          </View>
+      <View style={styles.subContainer}>
+        <View style={styles.quoteContainer}>
+          <MaterialCommunityIcons
+            name='format-quote-open'
+            size={22}
+            color={globalStyles.colors.quoteText}
+          />
+          <Text style={styles.quoteText}>{quote}.</Text>
         </View>
-        <View style={styles.subTextContainer}>
-          <View style={styles.dateTimeContainer}>
-            <Text style={[styles.text, styles.dateText]}>
-              {findDay(new Date(date))}
-            </Text>
+      </View>
+      <View style={styles.subTextContainer}>
+        <View style={styles.dateTimeContainer}>
+          <Text style={[styles.text, styles.dateText]}>
+            {findDay(new Date(date))}
+          </Text>
 
-            <Text style={[styles.text, styles.dateText]}>
-              {'  '}
-              {findTime(new Date(date))}
-            </Text>
-          </View>
-          <Text style={styles.text}>-{name}</Text>
+          <Text style={[styles.text, styles.dateText]}>
+            {'  '}
+            {findTime(new Date(date))}
+          </Text>
         </View>
-      </Pressable>
+        <Text style={styles.text}>-{name}</Text>
+      </View>
     </View>
   );
 };
