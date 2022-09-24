@@ -28,3 +28,11 @@ export const fetchQuoteDetails = async () => {
   }
   return quotes;
 };
+
+export const updateQuoteDetails = async (id, quoteData) => {
+  const response = await axios.put(
+    BackEnd_URL + DBName + '/' + id + DBFormat,
+    quoteData
+  );
+  console.log(response);
+};
