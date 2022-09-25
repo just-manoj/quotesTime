@@ -21,7 +21,7 @@ const QuotesList = () => {
   const quoteDetails = useSelector((state) => state.quotesData.quotes);
 
   const navigateScreen = () => {
-    navigation.navigate('ManageQuote');
+    navigation.navigate('ManageQuote', { addNewQuote: true });
   };
 
   useEffect(() => {

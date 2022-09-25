@@ -6,20 +6,23 @@ import { useDispatch } from 'react-redux';
 import CustomButton from '../components/CustomButton';
 import InputText from '../components/InputText';
 import { globalStyles } from '../globalStyles/globalStyles';
-import { addQuote } from '../redux/QuotesData';
-import { postQuoteDetails } from '../utils/http';
+import { addQuote, updateQuote } from '../redux/QuotesData';
+import { postQuoteDetails, updateQuoteDetails } from '../utils/http';
 
-const ManageQuote = () => {
+const ManageQuote = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const addNewQuote = props.route.params?.addNewQuote;
+  const { quoteId, name, quote, date } = props.route.params.defaultValue || {};
+
   const [quoteInputValue, setQuoteInputValue] = useState({
     name: {
-      value: '',
+      value: name ? name : '',
       isValid: true,
     },
     quote: {
-      value: '',
+      value: quote ? quote : '',
       isValid: true,
     },
   });
@@ -68,8 +71,13 @@ const ManageQuote = () => {
       });
       return;
     }
-    const id = await postQuoteDetails(value);
-    dispatch(addQuote({ quoteData: { ...value, id: id } }));
+    if (addNewQuote) {
+      const id = await postQuoteDetails(value);
+      dispatch(addQuote({ quoteData: { ...value, id: id } }));
+    } else {
+      const response = await updateQuoteDetails(quoteId, value);
+      dispatch(updateQuote({ quoteData: { ...value, id: quoteId } }));
+    }
     setEmpty();
     navigation.navigate('QuotesList');
   };
@@ -79,12 +87,11 @@ const ManageQuote = () => {
     navigation.navigate('QuotesList');
   };
 
-  useLayoutEffect(() => {
-    setEmpty();
-  }, []);
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Add Quote</Text>
+      <Text style={styles.title}>
+        {addNewQuote ? 'Add Quote' : 'Update Quote'}
+      </Text>
       <View style={styles.secondaryContainer}>
         <InputText
           title='Name'
@@ -110,7 +117,9 @@ const ManageQuote = () => {
           >
             Cancel
           </CustomButton>
-          <CustomButton onPress={confirmHandler}>Add</CustomButton>
+          <CustomButton onPress={confirmHandler}>
+            {addNewQuote ? 'Add' : 'Update'}
+          </CustomButton>
         </View>
       </View>
     </View>

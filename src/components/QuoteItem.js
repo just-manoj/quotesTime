@@ -2,35 +2,47 @@ import { View, Text, StyleSheet, Dimensions, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { findDay, findTime } from '../utils/date';
 import { globalStyles } from '../globalStyles/globalStyles';
+import { useNavigation } from '@react-navigation/native';
 
 const QuoteItem = (props) => {
-  const { name, quote, date } = props;
-  return (
-    <View style={styles.container}>
-      <View style={styles.subContainer}>
-        <View style={styles.quoteContainer}>
-          <MaterialCommunityIcons
-            name='format-quote-open'
-            size={22}
-            color={globalStyles.colors.quoteText}
-          />
-          <Text style={styles.quoteText}>{quote}.</Text>
-        </View>
-      </View>
-      <View style={styles.subTextContainer}>
-        <View style={styles.dateTimeContainer}>
-          <Text style={[styles.text, styles.dateText]}>
-            {findDay(new Date(date))}
-          </Text>
+  const { id, name, quote, date } = props;
+  const navigation = useNavigation();
 
-          <Text style={[styles.text, styles.dateText]}>
-            {'  '}
-            {findTime(new Date(date))}
-          </Text>
+  return (
+    <Pressable
+      onLongPress={() =>
+        navigation.navigate('ManageQuote', {
+          defaultValue: { quoteId: id, name: name, quote: quote, date: date },
+        })
+      }
+      style={({ pressed }) => pressed && styles.pressed}
+    >
+      <View style={styles.container}>
+        <View style={styles.subContainer}>
+          <View style={styles.quoteContainer}>
+            <MaterialCommunityIcons
+              name='format-quote-open'
+              size={22}
+              color={globalStyles.colors.quoteText}
+            />
+            <Text style={styles.quoteText}>{quote}.</Text>
+          </View>
         </View>
-        <Text style={styles.text}>-{name}</Text>
+        <View style={styles.subTextContainer}>
+          <View style={styles.dateTimeContainer}>
+            <Text style={[styles.text, styles.dateText]}>
+              {findDay(new Date(date))}
+            </Text>
+
+            <Text style={[styles.text, styles.dateText]}>
+              {'  '}
+              {findTime(new Date(date))}
+            </Text>
+          </View>
+          <Text style={styles.text}>-{name}</Text>
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -82,5 +94,8 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 11,
+  },
+  pressed: {
+    opacity: 0.6,
   },
 });
