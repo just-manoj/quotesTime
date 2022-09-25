@@ -34,5 +34,4 @@ export const updateQuoteDetails = async (id, quoteData) => {
     BackEnd_URL + DBName + '/' + id + DBFormat,
     quoteData
   );
-  console.log(response);
 };
