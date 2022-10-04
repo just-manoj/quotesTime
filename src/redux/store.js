@@ -10,4 +10,6 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }),
+  // immutableCheck: false,
+  // serializableCheck: false,
 });
