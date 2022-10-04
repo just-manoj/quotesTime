@@ -28,10 +28,17 @@ const QuotesData = createSlice({
       state.quotes.splice(index, 1);
       state.quotes.splice(0, 0, quoteItem);
     },
+    deleteQuote: (state, action) => {
+      const index = state.quotes.findIndex(
+        (quote) => quote.id == action.payload.id
+      );
+      state.quotes.splice(index, 1);
+    },
   },
 });
 
 export const addQuote = QuotesData.actions.addQuote;
 export const setQuote = QuotesData.actions.setQuote;
 export const updateQuote = QuotesData.actions.updateQuote;
+export const deleteQuote = QuotesData.actions.deleteQuote;
 export default QuotesData.reducer;

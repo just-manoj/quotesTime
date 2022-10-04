@@ -5,10 +5,7 @@ const DBName = '/QuoteDetails';
 const DBFormat = '.json';
 
 export const postQuoteDetails = async (quoteDetails) => {
-  const response = await axios.post(
-    BackEnd_URL + DBName + DBFormat,
-    quoteDetails
-  );
+  await axios.post(BackEnd_URL + DBName + DBFormat, quoteDetails);
   const id = response.data.name;
   return id;
 };
@@ -30,8 +27,9 @@ export const fetchQuoteDetails = async () => {
 };
 
 export const updateQuoteDetails = async (id, quoteData) => {
-  const response = await axios.put(
-    BackEnd_URL + DBName + '/' + id + DBFormat,
-    quoteData
-  );
+  await axios.put(BackEnd_URL + DBName + '/' + id + DBFormat, quoteData);
+};
+
+export const deleteQuoteDetails = async (id) => {
+  await axios.delete(BackEnd_URL + DBName + '/' + id + DBFormat);
 };

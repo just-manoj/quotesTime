@@ -1,13 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
-import { useLayoutEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import CustomButton from '../components/CustomButton';
 import InputText from '../components/InputText';
 import { globalStyles } from '../globalStyles/globalStyles';
-import { addQuote, updateQuote } from '../redux/QuotesData';
-import { postQuoteDetails, updateQuoteDetails } from '../utils/http';
+import { addQuote, updateQuote, deleteQuote } from '../redux/QuotesData';
+import {
+  deleteQuoteDetails,
+  postQuoteDetails,
+  updateQuoteDetails,
+} from '../utils/http';
+import ManageQuoteHeader from '../components/ManageQuoteHeader';
 
 const ManageQuote = (props) => {
   const dispatch = useDispatch();
@@ -15,6 +20,8 @@ const ManageQuote = (props) => {
 
   const addNewQuote = props.route.params?.addNewQuote;
   const { quoteId, name, quote, date } = props.route.params.defaultValue || {};
+
+  // console.log(props.route.params);
 
   const [quoteInputValue, setQuoteInputValue] = useState({
     name: {
@@ -87,11 +94,22 @@ const ManageQuote = (props) => {
     navigation.navigate('QuotesList');
   };
 
+  const headerPressHandler = (operation) => {
+    if (operation === 'delete') {
+      dispatch(deleteQuote({ id: quoteId }));
+      deleteQuoteDetails(quoteId);
+      cancelHandler();
+    } else {
+      confirmHandler();
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
-        {addNewQuote ? 'Add Quote' : 'Update Quote'}
-      </Text>
+      <ManageQuoteHeader
+        addNewQuote={addNewQuote}
+        headerPressHandler={headerPressHandler}
+      />
       <View style={styles.secondaryContainer}>
         <InputText
           title='Name'
@@ -132,16 +150,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: globalStyles.colors.screenBackground,
-    paddingTop: 110,
+    paddingTop: 100,
   },
   secondaryContainer: {
     paddingTop: 10,
-  },
-  title: {
-    fontFamily: 'title',
-    fontSize: 25,
-    color: 'white',
-    textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
