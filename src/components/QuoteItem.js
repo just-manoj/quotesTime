@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet, Dimensions, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { findDay, findTime } from '../utils/date';
 import { globalStyles } from '../globalStyles/globalStyles';
 import { useNavigation } from '@react-navigation/native';
+
+import { findDay, findTime } from '../utils/date';
 
 const QuoteItem = (props) => {
   const { id, name, quote, date } = props;
@@ -33,7 +34,6 @@ const QuoteItem = (props) => {
             <Text style={[styles.text, styles.dateText]}>
               {findDay(new Date(date))}
             </Text>
-
             <Text style={[styles.text, styles.dateText]}>
               {'  '}
               {findTime(new Date(date))}

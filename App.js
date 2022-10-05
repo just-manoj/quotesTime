@@ -3,7 +3,6 @@ import { useCallback, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
 
 import Navigation from './src/Navigation/Navigation';
 import { store } from './src/redux/store';
@@ -38,7 +37,6 @@ export default function App() {
       <Provider store={store}>
         <View style={styles.container} onLayout={onLayoutRootView}>
           <Navigation />
-          <StatusBar style='light' />
         </View>
       </Provider>
     </>

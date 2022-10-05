@@ -5,7 +5,10 @@ const DBName = '/QuoteDetails';
 const DBFormat = '.json';
 
 export const postQuoteDetails = async (quoteDetails) => {
-  await axios.post(BackEnd_URL + DBName + DBFormat, quoteDetails);
+  const response = await axios.post(
+    BackEnd_URL + DBName + DBFormat,
+    quoteDetails
+  );
   const id = response.data.name;
   return id;
 };
