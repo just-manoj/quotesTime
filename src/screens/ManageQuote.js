@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import CustomButton from '../components/CustomButton';
 import InputText from '../components/InputText';
 import { globalStyles } from '../globalStyles/globalStyles';
 import { addQuote, updateQuote, deleteQuote } from '../redux/QuotesData';
@@ -13,6 +12,7 @@ import {
   updateQuoteDetails,
 } from '../utils/http';
 import ManageQuoteHeader from '../components/ManageQuoteHeader';
+import BottomButtonContainer from '../components/BottomButtonContainer';
 
 const ManageQuote = (props) => {
   const dispatch = useDispatch();
@@ -20,8 +20,6 @@ const ManageQuote = (props) => {
 
   const addNewQuote = props.route.params?.addNewQuote;
   const { quoteId, name, quote, date } = props.route.params.defaultValue || {};
-
-  // console.log(props.route.params);
 
   const [quoteInputValue, setQuoteInputValue] = useState({
     name: {
@@ -42,18 +40,7 @@ const ManageQuote = (props) => {
       };
     });
   };
-  const setEmpty = () => {
-    setQuoteInputValue({
-      name: {
-        value: '',
-        isValid: true,
-      },
-      quote: {
-        value: '',
-        isValid: true,
-      },
-    });
-  };
+
   const confirmHandler = async () => {
     const value = {
       name: quoteInputValue.name.value,
@@ -85,12 +72,10 @@ const ManageQuote = (props) => {
       const response = await updateQuoteDetails(quoteId, value);
       dispatch(updateQuote({ quoteData: { ...value, id: quoteId } }));
     }
-    setEmpty();
     navigation.navigate('QuotesList');
   };
 
   const cancelHandler = () => {
-    setEmpty();
     navigation.navigate('QuotesList');
   };
 
@@ -122,23 +107,22 @@ const ManageQuote = (props) => {
         <InputText
           title='Quote'
           isValid={quoteInputValue.quote.isValid}
-          style={{ multiline: true, textAlignVertical: 'top', height: 100 }}
+          style={{
+            textAlignVertical: 'top',
+            height: 100,
+          }}
           inputProps={{
             onChangeText: changeInputHandler.bind(this, 'quote'),
             value: quoteInputValue.quote.value,
+            multiline: true,
+            numberOfLines: 4,
           }}
         />
-        <View style={styles.buttonContainer}>
-          <CustomButton
-            onPress={cancelHandler}
-            style={{ backgroundColor: 'transparent' }}
-          >
-            Cancel
-          </CustomButton>
-          <CustomButton onPress={confirmHandler}>
-            {addNewQuote ? 'Add' : 'Update'}
-          </CustomButton>
-        </View>
+        <BottomButtonContainer
+          cancelHandler={cancelHandler}
+          confirmHandler={confirmHandler}
+          addNewQuote={addNewQuote}
+        />
       </View>
     </View>
   );
@@ -154,10 +138,5 @@ const styles = StyleSheet.create({
   },
   secondaryContainer: {
     paddingTop: 10,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    marginTop: 10,
-    justifyContent: 'center',
   },
 });
